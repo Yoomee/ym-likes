@@ -4,12 +4,12 @@ class YmLikes::LikesController < ApplicationController
 
   def create
     @like = current_user.likes.find_or_create_by_resource_type_and_resource_id(params[:resource_type], params[:resource_id])
-    render :action => "add_remove"
+    render :json => @like.as_json(:only => [:id, :resource_id, :resource_type])
   end
 
   def destroy
     @like.destroy
-    render :action => "add_remove"
+    render :json => @like.as_json(:only => [:resource_id, :resource_type])
   end
 
 end
