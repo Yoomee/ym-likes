@@ -1,0 +1,2 @@
+$('.like-link[data-resource-type="<%=@like.resource_type%>"][data-resource-id="<%=@like.resource_id%>"]').replaceWith('<%=escape_javascript(like_link(@like.resource))%>')
+$('.like-link[data-resource-type="<%=@like.resource_type%>"][data-resource-id="<%=@like.resource_id%>"]').tooltip({placement:'bottom'});
