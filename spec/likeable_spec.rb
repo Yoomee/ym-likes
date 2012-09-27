@@ -4,7 +4,7 @@ describe 'YmLikes::Likeable' do
   
   describe Resource do
   
-    it { should have_many(:likes) }
+    it { should have_many(:likings) }
     
     describe 'most_likes scope' do
       
