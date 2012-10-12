@@ -1,8 +1,8 @@
 module YmLikes::LikesHelper
-  
+
   def like_link(resource, options = {})
     return "" if current_user.nil?
-    options.merge!(:remote => true, :like_text => "Like", :unlike_text => "Unlike")
+    options.reverse_merge!(:remote => true, :like_text => "Like", :unlike_text => "Unlike")
     options[:class] = "#{options[:class]} like-link".strip
     resource_hash = {:resource_type => resource.class.to_s, :resource_id => resource.id}
     options[:data] = options.slice(:like_text, :unlike_text)
@@ -21,7 +21,7 @@ module YmLikes::LikesHelper
     link_to(url, options) do
       content_tag(:i, "", :class => "icon-heart") + " #{options[:title]}"
     end
-    
+
   end
-  
+
 end
