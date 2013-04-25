@@ -11,6 +11,7 @@ module YmLikes
         copy_file "models/like.rb", "app/models/like.rb"
         copy_file "controllers/likes_controller.rb", "app/controllers/likes_controller.rb"
         try_migration_template "migrations/create_likes.rb", "db/migrate/create_likes"
+        try_migration_template "migrations/add_removed_at_to_likes.rb", "db/migrate/add_removed_at_to_likes"
         
         if should_add_abilities?('Like')
           add_ability(:user, "can :manage, Like, :user_id => user.id")

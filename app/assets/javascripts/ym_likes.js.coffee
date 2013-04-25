@@ -5,13 +5,13 @@ window.YmLikes =
     $('a.like-link').live 'ajax:success', (event, data) =>
       YmLikes.refreshLink($(event.target), data)
   refreshLink: (likeLink, data) ->
-    if likeLink.hasClass('active')
-      params = "resource_type=#{data.resource_type}&resource_id=#{data.resource_id}"       
-      likeLink.removeClass('active').data('method', 'post').attr('href', "/likes/?#{params}")
+    if data.removed_at
       likeLink.html(likeLink.html().replace(likeLink.data('unlike-text'), likeLink.data('like-text')))      
+      url = "/likes/#{data.id}/relike/"
     else
-      likeLink.addClass('active').data('method', 'delete').attr('href', "/likes/#{data.id}")
-      likeLink.html(likeLink.html().replace(likeLink.data('like-text'), likeLink.data('unlike-text')))    
+      likeLink.html(likeLink.html().replace(likeLink.data('like-text'), likeLink.data('unlike-text')))      
+      url = "/likes/#{data.id}/unlike"
+    likeLink.removeClass('active').data('method', 'put').attr('href', url)
     likeLink.removeClass('loading')
     
 $ ->
