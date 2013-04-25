@@ -1,6 +1,8 @@
-class YmLikes::LikesController < ApplicationController
+module YmLikes::LikesController
 
-  load_and_authorize_resource :class => 'YmLikes::Like'
+  def self.included(base)
+    base.load_and_authorize_resource
+  end
 
   def create
     @like = current_user.likes.find_or_create_by_resource_type_and_resource_id(params[:resource_type], params[:resource_id])

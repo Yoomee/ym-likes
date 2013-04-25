@@ -1,10 +1,10 @@
-class YmLikes::Like < ActiveRecord::Base
+module YmLikes::Like
   
-  include YmCore::Model
-  
-  belongs_to :user
-  belongs_to :resource, :polymorphic => true
-  
-  validates_presence_of :user, :resource
+  def self.included(base)
+    base.send(:include, YmCore::Model)
+    base.belongs_to :user
+    base.belongs_to :resource, :polymorphic => true
+    base.validates_presence_of :user, :resource
+  end
   
 end
