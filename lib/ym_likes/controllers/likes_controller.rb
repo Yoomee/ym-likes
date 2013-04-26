@@ -1,7 +1,7 @@
 module YmLikes::LikesController
 
   def self.included(base)
-    base.load_and_authorize_resource
+    base.load_and_authorize_resource :except => :relike
   end
 
   def create
@@ -19,6 +19,8 @@ module YmLikes::LikesController
   end
   
   def relike
+    @like = Like.unscoped.where(:id => params[:id]).first
+    authorize! :relike, @like
     @like.update_attribute(:removed_at, nil)
     render :json => @like.as_json(:only => [:id, :removed_at])
   end
