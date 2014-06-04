@@ -10,9 +10,15 @@ module YmLikes
       def manifest
         copy_file "models/like.rb", "app/models/like.rb"
         copy_file "controllers/likes_controller.rb", "app/controllers/likes_controller.rb"
-        try_migration_template "migrations/create_likes.rb", "db/migrate/create_likes"
-        try_migration_template "migrations/add_removed_at_to_likes.rb", "db/migrate/add_removed_at_to_likes"
-        
+        # try_migration_template "migrations/create_likes.rb", "db/migrate/create_likes"
+        # try_migration_template "migrations/add_removed_at_to_likes.rb", "db/migrate/add_removed_at_to_likes"
+
+        # Migrations must go last
+        Dir[File.dirname(__FILE__) + '/templates/migrations/*.rb'].each do |file_path|
+          file_name = file_path.split("/").last
+          try_migration_template "migrations/#{file_name}", "db/migrate/#{file_name.sub(/^\d+\_/, '')}"
+        end
+
         if should_add_abilities?('Like')
           add_ability(:user, "can :manage, Like, :user_id => user.id")
         end
