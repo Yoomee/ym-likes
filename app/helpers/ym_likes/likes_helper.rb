@@ -5,8 +5,11 @@ module YmLikes::LikesHelper
     link_to(link_text, url, options)
   end
 
-  def like_button_with_count(resource, options = {})
-    like_link(resource, options)
+  def like_link_with_count(resource, options = {})
+    link_text, url, options = generate_like_options(resource, options)
+    link_to(url, options) do
+      content_tag(:span, "#{link_text} like us", class: "pull-left") + content_tag(:i, "", class: "fa fa-heart pull-right")
+    end
   end
 
   private
