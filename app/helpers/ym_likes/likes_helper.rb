@@ -1,7 +1,7 @@
 module YmLikes::LikesHelper
 
   def like_link(resource, options = {})
-    options.reverse_merge!(:like_text => "Like", :unlike_text => "Unlike", :like_title => "Like", :unlike_title => "Unlike", :remote => true)
+    options.reverse_merge!(:like_text => "Like", :unlike_text => "Unlike", :like_title => "Like", :unlike_title => "Unlike", :remote => true, :icon => 'heart')
     options[:class] = "#{options[:class]} like-link".strip
     resource_hash = {:resource_type => resource.class.to_s, :resource_id => resource.id}
     options[:data] = options.slice(:like_text, :unlike_text)
