@@ -1,6 +1,17 @@
 module YmLikes::LikesHelper
 
   def like_link(resource, options = {})
+    link_text, url, options = generate_like_options(resource, options)
+    link_to(link_text, url, options)
+  end
+
+  def like_button_with_count(resource, options = {})
+    like_link(resource, options)
+  end
+
+  private
+
+  def generate_like_options(resource, options)
     options.reverse_merge!(:like_text => "Like", :unlike_text => "Unlike", :like_title => "Like", :unlike_title => "Unlike", :remote => true, :icon => 'heart')
     options[:class] = "#{options[:class]} like-link".strip
     resource_hash = {:resource_type => resource.class.to_s, :resource_id => resource.id}
@@ -21,12 +32,12 @@ module YmLikes::LikesHelper
         options[:title] = options.delete(:unlike_title)
         options[:class] += " active"
       end
-      link_to(link_text, url, options)
     else
       options[disabled: true]
       link_text = options.delete(:like_text)
-      link_to(link_text, '#', options)
+      url = '#'
     end
+    return link_text, url, options
   end
 
 end
