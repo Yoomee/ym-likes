@@ -5,7 +5,7 @@ module YmLikes::LikesController
   end
 
   def create
-    @like = current_user.likes.find_or_create_by_resource_type_and_resource_id(params[:resource_type], params[:resource_id])
+    @like = current_user.likes.find_or_create_by(resource_type: params[:resource_type], resource_id: params[:resource_id])
     if request.xhr?
       render :json => @like.as_json(:only => [:id, :removed_at])
     else
@@ -17,7 +17,7 @@ module YmLikes::LikesController
     @like.update_attribute(:removed_at, Time.now)
     render :json => @like.as_json(:only => [:id, :removed_at])
   end
-  
+
   def relike
     @like = Like.unscoped.where(:id => params[:id]).first
     authorize! :relike, @like
