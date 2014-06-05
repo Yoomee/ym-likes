@@ -23,10 +23,7 @@ module YmLikes::LikesHelper
       options[:title] = options.delete(:unlike_title)
       options[:class] += " active"
     end
-    link_to(url, options) do
-      content_tag(:i, "", :class => "heart") + " #{link_text}"
-    end
-
+    link_to(link_text, url, options)
   end
 
 end
