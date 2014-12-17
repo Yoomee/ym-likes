@@ -36,7 +36,7 @@ module YmLikes::LikesHelper
         options[:class] += " active"
       end
     else
-      options[disabled: true]
+      options[:disabled] = true
       link_text = options.delete(:like_text)
       url = '#'
     end
